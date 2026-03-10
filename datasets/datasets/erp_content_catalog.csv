@@ -1,0 +1,52 @@
+content_id,title,content_type,genre,original_language,release_year,avg_episode_duration_min,total_episodes,maturity_rating,country_of_origin,is_original,date_added_platform
+CNT_001,stranger things,Series,SCI-FI,Anglais,2016,50,34,PG-13,us,True,2016-07-15
+CNT_002,Breaking Bad,Series,Drama,EN,2008,47,62,TV-MA,United States,0,2020-01-10
+CNT_003,Money Heist,Series,Thriller,Espagnol,2017,41,41,tvma,Spain,0,2017-12-20
+CNT_004,Squid Game,series,Thriller,KO,2021,9,9,TV-MA,South Korea,True,2021-09-17
+CNT_005,Dark,Series,Sci-Fi,DE,2017,60,26,TV-MA,Germany,False,2017-12-01
+CNT_006,Narcos,Series,Crime,EN,2015,50,30,tvma,United States,True,2015-08-28
+CNT_007,Lupin,Series,Crime,FR,2021,40,17,PG-13,FR,1,2021-01-08
+CNT_008,The Crown,Series,Drama,English,2016,58,60,TV-14,United Kingdom,False,2016-11-04
+CNT_009,Wednesday,Series,comedy,EN,2022,45,8,TV-14,US,True,2022-11-23
+CNT_010,Arcane,series,Animation,EN,2021,42,,TV-14,United States,True,2021-11-06
+CNT_011,The Last of Us,Series,Drama,EN,2023,60,9,TV-MA,United States,False,
+CNT_012,Peaky Blinders,Series,Drama,EN,2013,60,36,TV-MA,United Kingdom,False,2019-09-20
+CNT_013,THE BEAR,Series,Drama,EN,2022,0,18,TV-MA,us,False,2023-06-23
+CNT_014,Severance,Series,Sci-Fi,EN,2022,55,9,TV-MA,United States,True,2022-02-18
+CNT_015,Attack on Titan,Series,Action/Anime,JA,2013,24,87,tvma,Japan,False,2020-03-01
+CNT_016,Demon Slayer,Series,Action/Anime,JA,2019,24,55,TV-14,Japan,False,2021-01-15
+CNT_017,House of the Dragon,Series,Fantasy,EN,2022,60,18,tvma,United States,True,2022-08-21
+CNT_018,Our Planet,Series,Documentary,Anglais,2019,50,8,TV-G,United Kingdom,True,2019-04-05
+CNT_019,CALL MY AGENT,Series,Comedy,French,2015,26,24,TV-14,france,True,2015-02-07
+CNT_020,Elite,Series,Drama,ES,2018,45,56,TV-MA,Spain,False,2018-10-05
+CNT_021,Fauda,Series,Thriller,HE,2015,45,48,TV-MA,Israel,False,2017-12-16
+CNT_022,Death Note,serie,THRILLER/ANIME,JA,2006,23,37,TV-14,Japan,False,2021-05-10
+CNT_023,Squid Game S2,Series,Thriller,KO,2024,9,7,TV-MA,kr,True,2024-12-26
+CNT_024,UNORTHODOX,Series,drama,DE,2020,60,4,TV-MA,DE,False,2020-03-26
+CNT_025,the witcher,MOVIE,Fantasy,Anglais,2019,60,,tvma,United States,False,2019-12-20
+CNT_026,Ted Lasso,Series,Comedy,EN,2099,35,34,TV-PG,United Kingdom,False,2020-08-14
+CNT_027,LA CASA DE PAPEL,Series,Thriller,ES,2017,70,41,tvma,Spain,False,2017-05-02
+CNT_028,Arcane S2,Series,Animation,EN,2024,40,9,TV-14,United States,True,2024-11-09
+CNT_029,jujutsu kaisen,Series,Action/Anime,JA,2020,24,47,tv14,Japan,False,
+CNT_030,Game of Thrones,Series,Fantasy,EN,2011,60,73,TV-MA,United States,False,2020-05-01
+CNT_031,the boys,Series,Action,EN,2019,60,32,TV-MA,united states,True,2019-07-26
+CNT_032,euphoria,Series,Drama,EN,2019,55,16,TV-MA,United States,no,2020-01-15
+CNT_033,Black Mirror,Series,Sci-Fi,EN,2011,60,22,TV-MA,United Kingdom,no,2020-06-01
+CNT_034,Ozark,Series,Drama,EN,2017,60,44,tvma,US,True,2017-07-21
+CNT_035,SUCCESSION,Series,Drama,EN,2018,60,39,TV-MA,United States,False,2020-10-01
+CNT_036,mindhunter,Series,Crime,Anglais,2017,60,19,TV-MA,United States,true,2017-10-13
+CNT_037,Bridgerton,Series,Romance,EN,2020,60,16,TV-14,United States,True,2020-12-25
+CNT_038,Emily in Paris,Series,romance,EN,2020,30,30,TV-14,United States,True,
+CNT_039,Kingdom,Series,Horror,KO,2019,45,12,TV-MA,South Korea,False,2019-01-25
+CNT_040,Vincenzo,Series,Crime,KO,2021,60,20,TV-14,South Korea,False,2021-02-20
+CNT_041,Crash Landing on You,series,ROMANCE,KO,2019,70,16,tv14,South Korea,False,2019-12-14
+CNT_042,Signal,Series,Thriller,Coréen,2016,60,16,TV-14,KR,False,2020-07-01
+CNT_043,Alice in Borderland,Series,Sci-Fi,Japanese,2020,50,16,TV-MA,jp,False,2020-12-10
+CNT_044,Steins Gate,Series,Sci-Fi,JA,2011,24,25,TV-14,Japan,False,2021-03-01
+CNT_045,Fullmetal Alchemist,Series,Fantasy/Anime,JA,2009,24,64,TV-14,Japan,no,2020-08-01
+CNT_046,Babylon Berlin,Series,Drama,DE,2017,45,28,TV-MA,DE,False,2018-01-30
+CNT_047,marseille,Series,drama,FR,2016,52,12,TV-MA,France,True,2016-05-05
+CNT_048,3 Percent,Series,Sci-Fi,PT,2016,-1,26,TV-14,Brazil,False,2016-11-25
+CNT_049,SUBURRA,Series,Crime,IT,2017,50,24,TV-MA,Italy,False,2017-10-06
+CNT_050,Tiger King,Series,Documentary,EN,2020,45,7,TV-14,United States,TRUE,2020-03-20
+CNT_099,,,Documentary,,2018,-5,,PG,Unknown,,
