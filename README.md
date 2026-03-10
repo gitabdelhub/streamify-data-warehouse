@@ -188,4 +188,4 @@ python ai/predictions.py
 ## 👤 Author
 
 **Abdallah** — Data Engineering Student @ ENSIAS, Rabat, Morocco  
-🔗 [LinkedIn](www.linkedin.com/in/abdallah-assoumanou-354b43286) • 🐙 [GitHub](https://github.com/gitabdelhub)
+🔗 [LinkedIn](https://www.linkedin.com/in/abdallah-assoumanou-354b43286/) • 🐙 [GitHub](https://github.com/gitabdelhub)
