@@ -6,7 +6,7 @@
 
 ## 📌 Overview
 
-Welcome to the **Streamify Data Warehouse** project! This repository showcases an end-to-end data warehousing and analytics project simulating a real-world scenario for a fictional streaming company — **Streamify Inc.**
+Welcome to the **Streamify Data Warehouse** project! This repository showcases an end-to-end data warehousing and analytics project simulating a real-world scenario for a fictional streaming company  **Streamify Inc.**
 
 As a data engineering student at **ENSIAS (École Nationale Supérieure d'Informatique et d'Analyse des Systèmes)**, I built this project to:
 
@@ -32,9 +32,9 @@ streamify-data-warehouse/
 │   └── erp_content_catalog.csv
 │
 ├── scripts/
-│   ├── bronze/                        # Raw data ingestion (DDL + BULK INSERT)
+│   ├── bronze/                        # Raw data ingestion 
 │   ├── silver/                        # Data cleaning & transformation
-│   └── gold/                          # Star schema (dimensions + fact table)
+│   └── gold/                          # Data modeling 
 │
 ├── tests/                             # Data quality checks & audit queries
 │
@@ -97,7 +97,7 @@ dim_device ── fact_viewing_sessions ── dim_content
 ```
 
 The fact table `fact_viewing_sessions` represents one aggregated viewing session per row, joining all 5 dimensions via surrogate keys.
-
+### PS: The dim_subscription_plan is tied to fact_viewing_sessions not to dim_customer , it's because of the ASCII representation
 ---
 
 ## 🗃️ Data Sources
@@ -111,7 +111,7 @@ The project simulates receiving raw exports from two internal systems:
 | `erp_viewing_logs.csv` | ERP (App logs) | Raw viewing events (PLAY/PAUSE/STOP/RATE) |
 | `erp_content_catalog.csv` | ERP (Editorial) | Content catalog with genres and metadata |
 
-> ⚠️ The raw data intentionally contains real-world data quality issues: mixed date formats, inconsistent casing, duplicate records, orphan foreign keys, out-of-range values, and null fields — all handled during the Silver layer transformation.
+> ⚠️ The raw data contains real-world data quality issues: mixed date formats, inconsistent casing, duplicate records, orphan foreign keys, out-of-range values, and null fields — all handled during the Silver layer transformation.
 
 ---
 
@@ -120,7 +120,7 @@ The project simulates receiving raw exports from two internal systems:
 A **revenue forecasting model** built with Python predicts the next 3 months of subscription revenue using linear regression. Results are stored back in SQL Server and displayed directly in the Power BI dashboard.
 
 ```
-gold layer (mart_revenue_monthly)
+gold layer (fact_viewing_sessions + dimensions)
         ↓
   Python / scikit-learn
   (Linear Regression)
@@ -135,35 +135,35 @@ gold.revenue_predictions
 ## 🚀 How to Run the Project
 
 ### Prerequisites
-- Microsoft SQL Server (Developer Edition — free)
+- Microsoft SQL Server
 - SQL Server Management Studio (SSMS)
 - Python 3.x with `pandas`, `scikit-learn`, `pyodbc`
-- Power BI Desktop (free)
+- Power BI Desktop 
 
 ### Steps
 
 **1. Initialize the database**
 ```sql
 -- Run in SSMS
-scripts/bronze/01_init_database.sql
+scripts/bronze/ini_database_streamify.sql
 ```
 
 **2. Create Bronze tables and load raw data**
 ```sql
-scripts/bronze/02_bronze_ddl.sql
-scripts/bronze/03_bronze_load.sql   -- update CSV file paths before running
+scripts/bronze/ddl_bronze_layer.sql
+scripts/bronze/proc_load_bronze_layer.sql 
 ```
 
 **3. Clean and transform to Silver**
 ```sql
-scripts/silver/04_silver_ddl.sql
-scripts/silver/05_silver_load.sql
+scripts/silver/ddl_silver_layer.sql
+scripts/silver/proc_load_silver_layer.sql
 ```
 
 **4. Build the Gold Star Schema**
 ```sql
-scripts/gold/06_gold_ddl.sql
-scripts/gold/07_gold_load.sql
+scripts/gold/ddl_gold_layer.sql
+ql
 ```
 
 **5. Run the AI component**
@@ -180,8 +180,8 @@ python ai/predictions.py
 
 ## 📝 Notes
 
-- SQL scripts contain comments written in **French**, as this project was developed during my studies at ENSIAS (Morocco). Translation to English is planned in future revisions.
-- The dataset is **fully synthetic** — generated with Python to simulate realistic messy data from a streaming platform.
+- The scripts may contain some words in **French**, as i am originally a french speaker 
+- The dataset is **fully synthetic** — generated to simulate realistic messy data from a streaming platform.
 
 ---
 
