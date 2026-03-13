@@ -1,1 +1,0 @@
-EXEC load_bronze_layer
