@@ -2,13 +2,11 @@
 
 End-to-end Data Warehouse for a fictional streaming platform built with **Microsoft SQL Server**, following the **Medallion Architecture** (Bronze / Silver / Gold), containerized with **Docker**, and tested automatically via **GitHub Actions CI**, with a **Power BI** dashboard and Python AI components.
 
-![High-level architecture](images/High_level_architecture.png)
-
 ---
 
 ## Stack
 
-| Layer | Tools |
+| | |
 |---|---|
 | Database | Microsoft SQL Server 2022 |
 | IDE | SQL Server Management Studio (SSMS) |
@@ -24,16 +22,16 @@ End-to-end Data Warehouse for a fictional streaming platform built with **Micros
 
 ```
 streamify-data-warehouse/
-├── datasets/                   # Raw CSV exports (CRM + ERP)
+├── datasets/          # Raw CSV exports (CRM + ERP)
 ├── scripts/
-│   ├── bronze/                 # Raw ingestion — no transformation
-│   ├── silver/                 # Cleaning and standardization
-│   └── gold/                   # Constellation Schema (Views)
-├── ai/                         # Churn + Recommendation models and tests
-├── docker/                     # Dockerfiles and docker-compose.yml
-├── .github/workflows/          # CI pipeline
-├── powerbi/                    # Power BI dashboard (.pbix)
-└── data_catalog.md             # Column descriptions for the Gold layer
+│   ├── bronze/        # Raw ingestion
+│   ├── silver/        # Cleaning and transformation
+│   └── gold/          # Constellation Schema (Views)
+├── ai/                # Recommendation + churn models and tests
+├── docker/            # Dockerfiles and docker-compose.yml
+├── .github/workflows/ # CI pipeline
+├── powerbi/           # Power BI dashboard (.pbix)
+└── data_catalog.md    # Column descriptions for the Gold layer
 ```
 
 ---
@@ -42,17 +40,18 @@ streamify-data-warehouse/
 
 The project follows the **Medallion Architecture** with 3 layers, all running inside a SQL Server Docker container.
 
-**Bronze** ingests the 4 raw CSV files into SQL Server as-is. Every column is stored as `NVARCHAR` with no transformation applied. Full truncate and reload on every run.
+**Bronze** loads the 4 CSV files as-is into SQL Server. Every column is stored as `NVARCHAR`, no transformation applied. Full truncate and reload on every run.
 
-**Silver** is where the real cleaning happens. Each source file has its own documented set of issues fixed here: mixed date formats (DD/MM/YYYY and Unix timestamps), inconsistent country names standardized to ISO 2-letter codes, `is_active` values normalized across 6 different formats (True/False/1/0/yes/no), invalid `birth_date` values set to NULL, test accounts removed, and orphan foreign keys excluded before they reach the fact tables.
+**Silver** is where the real cleaning happens. Each source file has its own documented set of issues that are fixed here: mixed date formats (DD/MM/YYYY and Unix timestamps), inconsistent country names standardized to ISO 2-letter codes, `is_active` values normalized across 6 different formats (True/False/1/0/yes/no), invalid `birth_date` values like `1900-01-01` set to NULL, test accounts removed, and orphan foreign keys excluded before they reach the fact tables.
 
-**Gold** exposes business-ready data modeled as a Constellation Schema through SQL Views. No data is physically stored at this layer.
+**Gold** exposes business-ready data modeled as a Constellation Schema through SQL Views. No data is physically stored here.
 
+![High-level architecture](images/High_level_architecture.png)
 ---
 
 ## Data Model
 
-The Gold layer uses a **Constellation Schema**. Viewing sessions and subscription events are two distinct business processes sharing the same customers, plans, and dates — so they each get their own fact table.
+The Gold layer uses a **Constellation Schema**. Viewing sessions and subscription events are two distinct business processes that share the same customers, plans, and dates, so they each get their own fact table.
 
 ```
                               dim_date
@@ -69,11 +68,12 @@ The Gold layer uses a **Constellation Schema**. Viewing sessions and subscriptio
 
 ![Constellation Schema](images/constellation_schema.png)
 
-**fact_viewing_sessions** — one row per `session_id`. Raw PLAY/PAUSE/RESUME/STOP/RATE events are collapsed into a single row per session, keeping only sessions with a valid STOP event and at least 2 minutes of watch time.
+
+**fact_viewing_sessions** has one row per `session_id`. Raw PLAY/PAUSE/RESUME/STOP/RATE events from the ERP logs are collapsed into a single row per session, keeping only sessions with a valid STOP event and at least 2 minutes of watch time.
 
 Key metrics: `watch_time_minutes`, `is_completed` (user watched at least 75% of the average episode duration), `rating` (from RATE events), `had_pause`, `peak_hour`.
 
-**fact_subscriptions** — one row per subscription change event. Tracks every plan change (NEW, UPGRADE, DOWNGRADE, CANCEL, REACTIVATE) with the amount charged and payment status.
+**fact_subscriptions** has one row per subscription change event. It tracks every plan change (NEW, UPGRADE, DOWNGRADE, CANCEL, REACTIVATE) with the amount charged and payment status.
 
 ### Dimensions
 
@@ -81,33 +81,22 @@ Key metrics: `watch_time_minutes`, `is_completed` (user watched at least 75% of 
 |---|---|
 | `dim_customer` | Customer profile, shared by both fact tables |
 | `dim_subscription_plan` | Plan name, price, tier (FREE / BASIC / STANDARD / PREMIUM) |
-| `dim_date` | Date calendar covering 2019–2024, shared by both fact tables |
-| `dim_content` | Title, genre, content type, maturity rating |
-| `dim_device` | Device category and OS, built from internal reference (11 device codes) |
+| `dim_date` | Date calendar, shared by both fact tables |
+| `dim_content` | Title, genre, type, maturity rating |
+| `dim_device` | Device category and OS (10 device codes, built manually from internal reference) |
 
 ---
 
 ## Data Sources
 
-| File | Source System | Description |
+| File | System | Description |
 |---|---|---|
 | `crm_customers.csv` | CRM (Salesforce) | One row per customer account |
 | `crm_subscription_history.csv` | CRM (Finance) | Full history of plan changes |
 | `erp_viewing_logs.csv` | ERP (App logs) | Raw viewing events (PLAY, PAUSE, RESUME, STOP, RATE) |
 | `erp_content_catalog.csv` | ERP (Editorial) | Content catalog with genres and metadata |
 
-The two source systems do not communicate with each other, which is why orphan foreign keys exist between them. The Silver layer resolves this before anything reaches the Gold layer.
-
-### Data Volume (Silver layer)
-
-| Table | Rows |
-|---|---|
-| `silver.crm_customers` | 1 967 |
-| `silver.crm_subscription_history` | 3 665 |
-| `silver.erp_content_catalog` | 51 |
-| `silver.erp_viewing_logs` | 11 175 |
-
-Dataset covers **January 2019 to December 2024**. Fully synthetic.
+The two source systems do not communicate with each other, which is why orphan foreign keys exist between them. The Silver layer handles this before anything reaches the Gold layer.
 
 ---
 
@@ -128,22 +117,21 @@ Dataset covers **January 2019 to December 2024**. Fully synthetic.
 Make sure Docker Desktop is installed, then:
 
 ```bash
-git clone https://github.com/gitabdelhub/streamify-data-warehouse.git
+git clone https://github.com/your-org/streamify-data-warehouse.git
 cd streamify-data-warehouse
 cp .env.example .env      # set your SA_PASSWORD inside
 docker compose -f docker/docker-compose.yml up --build
 ```
 
-This starts SQL Server, runs the full Bronze → Silver → Gold pipeline automatically, and executes both AI models. Connect SSMS to `localhost,1433` to explore the data.
+This starts SQL Server, runs the full Bronze to Gold pipeline automatically, and executes both AI models. Connect SSMS to `localhost,1433` to explore the Gold views.
 
-> **Power BI** requires the Docker stack to be running.
-> Open `powerbi/streamify_dashboard.pbix` and connect to `localhost,1433`.
+> Power BI requires the Docker stack to be running. Open `powerbi/streamify_dashboard.pbix` and connect to `localhost,1433`.
 
 ---
 
 ## CI
 
-On every push and pull request to `main`, the pipeline spins up the full Docker stack, runs all SQL scripts from Bronze to Gold, and runs `pytest` on both AI models. A broken script or a model dropping below its accuracy threshold will fail the build before it reaches `main`.
+On every push and pull request to `main`, the pipeline spins up the full Docker stack, runs all SQL scripts from Bronze to Gold, and runs `pytest` on both AI models. A broken script or a model that drops below its accuracy threshold will fail the build before it reaches main.
 
 ---
 
@@ -151,9 +139,9 @@ On every push and pull request to `main`, the pipeline spins up the full Docker 
 
 Two scikit-learn models reading from the Gold layer:
 
-**Churn Prediction** flags users likely to cancel using subscription change history from `fact_subscriptions` combined with engagement signals from `fact_viewing_sessions`. The training label follows the churn KPI definition above.
-
 **Recommendation System** suggests content based on viewing history and completion patterns from `fact_viewing_sessions`.
+
+**Churn Prediction** flags users likely to cancel using subscription change history from `fact_subscriptions` combined with engagement signals from `fact_viewing_sessions`. The training label follows the churn KPI definition above.
 
 Results are written back to SQL Server and surfaced in the Power BI dashboard.
 
@@ -161,17 +149,18 @@ Results are written back to SQL Server and surfaced in the Power BI dashboard.
 
 ## Power BI Dashboard
 
-![Power BI Dashboard](images/Power_BI_Dashboard.png)
+![Power BI Dashboarda](images/Power_BI_Dashboard.png)
 
 ---
 
 ## Notes
 
 - SQL scripts contain comments in French.
-- The dataset is fully synthetic, generated for this project.
-- Never commit `.env` — use `.env.example` as a template.
+- The dataset is fully synthetic, covering January 2021 to December 2024.
+- Never commit `.env`, use `.env.example` as a template.
 
 ---
+
 
 ## Author
 
