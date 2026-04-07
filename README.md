@@ -1,3 +1,4 @@
+![High-level architecture](images/streamify_logo.png)
 # Streamify Inc. — Data Warehouse Project
 
 End-to-end Data Warehouse for a fictional streaming platform built with **Microsoft SQL Server**, following the **Medallion Architecture** (Bronze / Silver / Gold), containerized with **Docker**, and tested automatically via **GitHub Actions CI**, with a **Power BI** dashboard and Python AI components.
