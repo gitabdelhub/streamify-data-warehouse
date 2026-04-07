@@ -125,9 +125,7 @@ On every push and pull request to `main`, the pipeline spins up the full Docker 
 
 ## AI Components
 
-Two scikit-learn models reading from the Gold layer:
-
-**Recommendation System** suggests content based on viewing history and completion patterns from `fact_viewing_sessions`.
+A scikit-learn model reading from the Gold layer:
 
 **Churn Prediction** flags users likely to cancel using subscription change history from `fact_subscriptions` combined with engagement signals from `fact_viewing_sessions`. The training label follows the churn KPI definition above.
 
