@@ -53,19 +53,6 @@ The project follows the **Medallion Architecture** with 3 layers, all running in
 
 The Gold layer uses a **Constellation Schema**. Viewing sessions and subscription events are two distinct business processes that share the same customers, plans, and dates, so they each get their own fact table.
 
-```
-                              dim_date
-                             /        \
-                            /          \
-            fact_viewing_sessions   fact_subscriptions
-           /        |        \      /        \
-          /         |         \    /          \
-    dim_device  dim_content  dim_customer  dim_subscription_plan
-                                  \               /
-                                   \             /
-                                 (shared dimensions)
-```
-
 ![Constellation Schema](images/constellation_schema.png)
 
 
