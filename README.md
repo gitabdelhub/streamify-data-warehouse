@@ -129,8 +129,6 @@ A scikit-learn model reading from the Gold layer:
 
 **Churn Prediction** flags users likely to cancel using subscription change history from `fact_subscriptions` combined with engagement signals from `fact_viewing_sessions`. The training label follows the churn KPI definition above.
 
-Results are written back to SQL Server and surfaced in the Power BI dashboard.
-
 ---
 
 ## Power BI Dashboard
