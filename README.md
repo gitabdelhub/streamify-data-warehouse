@@ -153,4 +153,4 @@ A scikit-learn model reading from the Gold layer:
 
 [![GitHub](https://img.shields.io/badge/GitHub-gitabdelhub-181717?logo=github)](https://github.com/gitabdelhub)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Abdallah%20Assoumanou-0077B5?logo=linkedin)](https://www.linkedin.com/in/abdallah-assoumanou-354b43286)
-[![portfolio](https://abdallah-assoumanou.vercel.app/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Vercel-000000?logo=vercel)](https://abdallah-assoumanou.vercel.app/)
