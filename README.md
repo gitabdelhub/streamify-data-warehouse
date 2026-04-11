@@ -14,7 +14,7 @@ End-to-end Data Warehouse for a fictional streaming platform built with **Micros
 | Data Modeling | Constellation Schema |
 | Containerization | Docker and Docker Compose |
 | CI | GitHub Actions |
-| Visualization | Power BI Desktop |
+| Visualization | Dahboard |
 | AI | Python, scikit-learn |
 
 ---
@@ -132,15 +132,15 @@ A scikit-learn model reading from the Gold layer:
 
 ---
 
-## Power BI Dashboard
+## Dashboard
 
-![Power BI Dashboard](images/Power_BI_Dashboard.png)
+![Power BI Dashboard](images/Dashboard.png)
 
 ---
 
 ## Notes
 
-- SQL scripts contain comments in French.
+- SQL scripts may contain comments in French.
 - The dataset is fully synthetic, covering January 2021 to December 2024.
 - Never commit `.env`, use `.env.example` as a template.
 
@@ -153,3 +153,4 @@ A scikit-learn model reading from the Gold layer:
 
 [![GitHub](https://img.shields.io/badge/GitHub-gitabdelhub-181717?logo=github)](https://github.com/gitabdelhub)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Abdallah%20Assoumanou-0077B5?logo=linkedin)](https://www.linkedin.com/in/abdallah-assoumanou-354b43286)
+[![portfolio](https://abdallah-assoumanou.vercel.app/)
